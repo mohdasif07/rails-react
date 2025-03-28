@@ -33,6 +33,20 @@ function ToDolist(){
             })
            .catch((error) => console.error('Error creating Todo:', error));
     };
+    const deleteTodo = (id) => {
+        fetch(`http://localhost:3000/to_do_lists/${id}`, {
+            method: 'DELETE',
+        })
+        .then((response) => {
+            if (response.ok) {
+                setTodolists((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+            } else {
+                console.error('Error deleting Todo');
+            }
+        })
+        .catch((error) => console.error('Fetch error:', error));
+    };
+    
     return (
         <div>
             <h2>To-Do List</h2>
@@ -46,7 +60,11 @@ function ToDolist(){
                 <h3>Completed Tasks:</h3>
                 <ul>
                 {todolists.map((todo, index) => (
-                    <li key={index}>{todo.title}</li>
+                    <li key={index}>{todo.title}
+                    <button onClick={() => deleteTodo(todo.id)}>X</button>
+                    </li>
+                    
+                  
                 ))}
                  </ul>
                 <ul>
