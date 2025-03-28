@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: newpassword
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: my_crm_project_development
+
+test:
+  <<: *default
+  database: my_crm_project_test
+
+production:
+  <<: *default
+  database: my_crm_project_production
+  username: my_crm_project
+  password: <%= ENV["MY_CRM_PROJECT_DATABASE_PASSWORD"] %>
